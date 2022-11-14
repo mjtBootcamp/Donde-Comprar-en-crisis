@@ -5,7 +5,7 @@ const config = {
   host: "localhost",
   password: "mjt",
   port: 5432,
-  database: "appunto",
+  database: "postcovid",
   max: 20,
 };
 const pool = new Pool(config);

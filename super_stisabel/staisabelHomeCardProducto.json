@@ -1,0 +1,64 @@
+[
+  {
+    "imagenProducto": {
+      "class": "",
+      "informacion": {
+        "tag": "img",
+        "existe": true,
+        "src": "ruta",
+        "alt": "nombre"
+      },
+      "datos": []
+    },
+    "precioBase": {
+      "class": "product-sigle-price-wrapper",
+      "informacion": {
+        "tag": "p",
+        "existe": true,
+        "inneText": "Moneda precio",
+        "replace": "/[^0-9]/g"
+      },
+      "datos": []
+    },
+    "precioPorKilo": {
+      "class": "product-price-ppum",
+      "informacion": {
+        "tag": "p",
+        "existe": true,
+        "inneText": "$ precio 'x kg'",
+        "replace": ""
+      },
+      "datos": []
+    },
+    "Marca": {
+      "class": "pshelf-product-brand",
+      "informacion": {
+        "tag": "h2",
+        "existe": true,
+        "inneText": "Marca",
+        "replace": " "
+      },
+      "datos": []
+    },
+    "nombreProducto": {
+      "class": "shelf-product-title-text",
+      "informacion": {
+        "tag": "h2",
+        "existe": true,
+        "inneText": "Nombre kg g Lt",
+        "replace": " "
+      },
+      "datos": []
+    },
+    "cardAll": {
+      "class": "shelf-product-island",
+      "informacion": {
+        "tag": "p",
+        "existe": true,
+        "data.id": "data-testid",
+        "replace": " "
+      },
+      "datos": []
+    }
+  }
+]

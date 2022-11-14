@@ -1,5 +1,5 @@
-CREATE DATABASE appunto;
-\c appunto
+CREATE DATABASE postcovid;
+\c postcovid
 CREATE TABLE scanacuenta (
     id SERIAL PRIMARY KEY, 
     idProducto INT,
