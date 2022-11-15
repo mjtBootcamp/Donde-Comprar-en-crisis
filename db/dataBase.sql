@@ -4,7 +4,7 @@ CREATE TABLE scanacuenta (
     id SERIAL PRIMARY KEY, 
     idProducto INT,
     nombreProducto VARCHAR(50), 
-    precioActual INT,
+    precioActual VARCHAR(max),
     imgsrc varchar(500),
     fecha TIMESTAMP);
 CREATE TABLE scanlider (

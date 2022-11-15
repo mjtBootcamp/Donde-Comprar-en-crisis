@@ -2,7 +2,7 @@
 
 const insertProduct = async (nombreProducto, precioBase, img) => {
   //console.log("values :>> ", values);
-  const insertQuery = `INSERT INTO scanacuenta (nombreProducto,precioActual,imgsrc,fecha) VALUES (${nombreProducto},${precioBase},${img},(to_timestamp(${Date.now()} / 1000.0)))`;
+  const insertQuery = `INSERT INTO scanacuenta (nombreProducto,precioActual,imgsrc,fecha) VALUES ('${nombreProducto}','${precioBase}','${img}',(to_timestamp(${Date.now()} / 1000.0)))`;
   try {
     await pool.query(insertQuery);
   } catch (error) {
