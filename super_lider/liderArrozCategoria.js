@@ -21,7 +21,12 @@ async function getTokoPedia() {
     });
   };
   let productNames = await page.evaluate(() => {
-    sleep(10000);
+    (() => {
+      return new Promise((resolve) => {
+        setTimeout(resolve, 10000);
+        console.log("sleep :>> ", 10000);
+      });
+    })();
     let div = document.querySelectorAll("div");
     console.log("div", div); // console.log inside evaluate, will show on browser console not on node console
     div.forEach((el) => {
