@@ -16,7 +16,7 @@ const scanAcuenta = async () => {
         let div = document.querySelectorAll(".fRAese");
         console.log("div", div);
         let productos = [];
-        let simboloOferta = { class: "kvNwFA", datos: [] };
+        let simboloOferta = { class: "JMKOB", datos: [] };
         let imagenProducto = { class: "prod__figure__img", datos: [] };
         let precioBase = { class: "base__price", datos: [] };
         let nombreProducto = { class: "prod__name", datos: [] };
@@ -24,6 +24,11 @@ const scanAcuenta = async () => {
 
         div.forEach(async (element) => {
           let producto = {};
+          let sale = element.querySelector(`.${simboloOferta.class}`);
+          sale != null
+            ? (producto.oferta = true)
+            : (producto.oferta = false);
+
           let titleelem = element.querySelector(`.${nombreProducto.class}`);
           titleelem != null
             ? (producto.nombreProducto = titleelem.innerText)
