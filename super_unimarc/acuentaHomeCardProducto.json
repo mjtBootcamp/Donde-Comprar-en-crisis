@@ -1,0 +1,93 @@
+[
+  {
+    "simboloOferta": {
+      "class": "kvNwFA",
+      "informacion": {
+        "tag": "div",
+        "existe": true
+      },
+      "datos": []
+    },
+    "imagenProducto": {
+      "class": "prod__figure__img",
+      "informacion": {
+        "tag": "img",
+        "existe": true,
+        "src": "ruta",
+        "alt": "nombre",
+        "role": "presentation"
+      },
+      "datos": []
+    },
+    "precioBase": {
+      "class": "base__price",
+      "informacion": {
+        "tag": "p",
+        "existe": true,
+        "inneText": "Moneda precio",
+        "replace": "/[^0-9]/g"
+      },
+      "datos": []
+    },
+    "precioViejo": {
+      "class": "prod-crossed-out__price__old",
+      "informacion": {
+        "tag": "p",
+        "existe": true,
+        "inneText": "Parentesis Moneda precio Parentesis",
+        "replace": "/[^0-9]/g"
+      },
+      "datos": []
+    },
+    "ahorroDeclarado": {
+      "class": "prod-crossed-out__price__special-off",
+      "informacion": {
+        "tag": "p",
+        "existe": true,
+        "inneText": "'Ahorro' Moneda precio",
+        "replace": "/[^0-9]/g"
+      },
+      "datos": []
+    },
+    "precioPack": {
+      "class": "prod__n-per-price__text",
+      "informacion": {
+        "tag": "p",
+        "existe": true,
+        "inneText": "UnidadesPack 'X' Moneda precio",
+        "replace": ""
+      },
+      "datos": []
+    },
+    "preciounitario": {
+      "class": "sc-ktHwxA",
+      "informacion": {
+        "tag": ">span",
+        "existe": true,
+        "inneText": "Moneda precio '/un'",
+        "replace": "/[^0-9]/g"
+      },
+      "datos": []
+    },
+    "nombreProducto": {
+      "class": "prod__name",
+      "informacion": {
+        "tag": "p",
+        "existe": true,
+        "inneText": "Nombre kg g Lt Marca",
+        "replace": " "
+      },
+      "datos": []
+    },
+    "cardAll": {
+      "class": "fRAese",
+      "informacion": {
+        "tag": "p",
+        "existe": true,
+        "data.id": "data-testid",
+        "replace": " "
+      },
+      "datos": []
+    }
+  }
+]
