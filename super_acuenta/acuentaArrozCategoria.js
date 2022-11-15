@@ -37,7 +37,7 @@ const scanAcuenta = async () => {
           let a = priceelem.innerText.match(/\d/g);
           let b = a.join("");
           priceelem != null
-            ? (producto.precioBase = b)
+            ? (producto.precioBase = parseInt(b))
             : (producto.precioBase = null);
           productos.push(producto);
         });
