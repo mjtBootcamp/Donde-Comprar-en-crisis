@@ -10,6 +10,16 @@
       },
       "datos": []
     },
+    "codigoCencosur": {
+      "class": "shelf-product-title",
+      "classList":["shelf-wrap-image","not-logged"],
+      "informacion": {
+        "tag": "a",
+        "existe": true,
+        "href": "/arroz-largo-fino-1-kg-cuisine-and-co-1845787/p"
+      },
+      "datos": []
+    },
     "precioBase": {
       "class": "product-sigle-price-wrapper",
       "informacion": {
