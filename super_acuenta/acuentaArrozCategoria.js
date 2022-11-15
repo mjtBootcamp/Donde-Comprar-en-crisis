@@ -11,70 +11,55 @@ const scanAcuenta = async () => {
     await page.setViewport({ width: 1000, height: 926 });
     await page.goto(webRoute, { waitUntil: "networkidle2" });
     console.log("start evaluate javascript");
+    try {
+      let prodNames = await page.evaluate(async () => {
+        //console.log("document :>> ", document);
+        let div = document.querySelectorAll(".fRAese");
+        console.log("div", div); //No funciona y no funciona definirla afuera de la funcion
+        let productos = [];
+        let simboloOferta = { class: "kvNwFA", datos: [] };
+        let imagenProducto = { class: "prod__figure__img", datos: [] };
+        let precioBase = { class: "base__price", datos: [] };
+        let nombreProducto = { class: "prod__name", datos: [] };
+        div.forEach(async (element) => {
+          let producto = {};
+          let titleelem = element.querySelector(`.${nombreProducto.class}`);
+          titleelem != null
+            ? (producto.nombreProducto = titleelem.innerText)
+            : (producto.nombreProducto = null);
 
-    let prodNames = await page.evaluate(async () => {
-      //console.log("document :>> ", document);
-      let div = document.querySelectorAll(".fRAese");
-      console.log("div", div); //No funciona y no funciona definirla afuera de la funcion
-      let productos = [];
-      let simboloOferta = { class: "kvNwFA", datos: [] };
-      let imagenProducto = { class: "prod__figure__img", datos: [] };
-      let precioBase = { class: "base__price", datos: [] };
-      let nombreProducto = { class: "prod__name", datos: [] };
-      div.forEach((element) => {
-        let producto = {};
-        let titleelem = element.querySelector(`.${nombreProducto.class}`);
-        titleelem != null
-          ? (producto.nombreProducto = titleelem.innerText)
-          : (producto.nombreProducto = null);
+          let imgelem = element.querySelector(`.${imagenProducto.class}`);
+          imgelem != null
+            ? (producto.img = imgelem.src)
+            : (producto.img = null);
 
-        let imgelem = element.querySelector(`.${imagenProducto.class}`);
-        imgelem != null ? (producto.img = imgelem.src) : (producto.img = null);
+          let priceelem = element.querySelector(`.${precioBase.class}`);
+          let a = priceelem.innerText.match(/\d/g);
+          let b = a.join("");
+          priceelem != null
+            ? (producto.precioBase = b)
+            : (producto.precioBase = null);
+          productos.push(producto);
+        });
 
-        let priceelem = element.querySelector(`.${precioBase.class}`);
-        let a = priceelem.innerText.match(/\d/g);
-        let b = a.join("");
-        priceelem != null
-          ? (producto.precioBase = b)
-          : (producto.precioBase = null);
-        //await insertProduct(producto.nombreProducto,producto.precioBase,producto.img);
-        productos.push(producto);
+        return productos;
       });
-
-      return productos;
-    });
-    console.log("prodNames ", prodNames);
-    prodNames.forEach((prod) => {
-      console.log("prod :>> ", prod);
-      //insertProduct(prod.nombreProducto, prod.precioBase, prod.img);
-    });
-    browser.close();
+      console.log("prodNames ", prodNames);
+      prodNames.forEach(async (prod) => {
+        console.log("prod :>> ", prod);
+        try {
+          await insertProduct(prod.nombreProducto, prod.precioBase, prod.img);
+        } catch (error) {
+          console.log("error query :>> ", error.menssage);
+        }
+      });
+      browser.close();
+    } catch (error) {
+      console.log("error pronames :>> ", error);
+    }
   } catch (error) {
     console.log("error :>> ", error);
   }
   //return prodNames;
 };
 scanAcuenta();
-//insertProduct(prodNames);
-//   let precioViejo = {
-//     class: "prod-crossed-out__price__old",
-//     datos: [],
-//   };
-//   let ahorroDeclarado = {
-//     class: "prod-crossed-out__price__special-off",
-//     datos: [],
-//   };
-//   let precioPack = {
-//     class: "prod__n-per-price__text",
-//     datos: [],
-//   };
-//   let preciounitario = {
-//     class: "sc-ktHwxA",
-//     datos: [],
-//   };
-//   div.forEach((element) => {
-//     let priceUnEl = element.querySelector(`.${preciounitario.class}`);
-//     if (priceUnEl != null) {
-//         preciounitario.datos.push(priceUnEl.innerText);
-//     }
-//   });
