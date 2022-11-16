@@ -1,8 +1,12 @@
 ﻿const { pool } = require("./generaPool");
+const format = require("pg-format");
 
-const insertProduct = async (nombreProducto, precioBase, img) => {
-  //console.log("values :>> ", values);
-  const insertQuery = `INSERT INTO scanacuenta (nombreProducto,precioActual,imgsrc,fecha) VALUES ('${nombreProducto}',${precioBase},'${img}',(to_timestamp(${Date.now()} / 1000.0)))`;
+const insertProduct = async (tabla, values) => {
+  console.log("values :>> ", values);
+  const insertQuery = {
+    text: `INSERT INTO ${tabla} (nombreProducto, marcaProducto,precioActual,imgsrc,fecha) VALUES ($1,$2,$3,$4,(to_timestamp($5)))`,
+    values,
+  };
   try {
     await pool.query(insertQuery);
   } catch (error) {

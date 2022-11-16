@@ -23,30 +23,29 @@ const scanAcuenta = async () => {
         let pack = { class: "prod__n-per-price__text", datos: [] };
 
         div.forEach(async (element) => {
-          let producto = {};
-          let sale = element.querySelector(`.${simboloOferta.class}`);
-          sale != null
-            ? (producto.oferta = true)
-            : (producto.oferta = false);
+          let producto = [];
+
+          /* let sale = element.querySelector(`.${simboloOferta.class}`);
+          sale != null ? (producto.oferta = true) : (producto.oferta = false); */
 
           let titleelem = element.querySelector(`.${nombreProducto.class}`);
           titleelem != null
-            ? (producto.nombreProducto = titleelem.innerText)
-            : (producto.nombreProducto = null);
+            ? producto.push(titleelem.innerText)
+            : producto.push(null);
 
-          let imgelem = element.querySelector(`.${imagenProducto.class}`);
-          imgelem != null
-            ? (producto.img = imgelem.src)
-            : (producto.img = null);
+          producto.push(null); //MARCA
 
           let priceelem = element.querySelector(`.${precioBase.class}`);
           let a = priceelem.innerText.match(/\d/g);
           let b = a.join("");
-          priceelem != null
-            ? (producto.precioBase = parseInt(b))
-            : (producto.precioBase = null);
+          priceelem != null ? producto.push(parseInt(b)) : producto.push(null);
 
-          
+          let imgelem = element.querySelector(`.${imagenProducto.class}`);
+          imgelem != null ? producto.push(imgelem.src) : producto.push(null);
+
+          producto.push(Date.now() / 1000);
+
+          /* 
             let pricepackEl = element.querySelector(`.${pack.class}`);
             if (pricepackEl) {
               let pricePackText = pricepackEl.textContent;
@@ -72,24 +71,23 @@ const scanAcuenta = async () => {
                 }
               }
             }
+             */
 
+          console.log("producto :>> ", producto);
           productos.push(producto);
         });
 
         return productos;
       });
-      console.log("prodNames ", prodNames);
-      prodNames.forEach(async (prod) => {
-        if (prod.precioPack != null) {
-          console.log("prod :>> ", prod);
-        }
-        try {
-          await insertProduct(prod.nombreProducto, prod.precioBase, prod.img);
-        } catch (error) {
-          console.log("error query :>> ", error.menssage);
-        }
-      });
-      //browser.close();
+      try {
+        prodNames.forEach(async (prod) => {
+          const nombreTabla = "scanacuenta";
+          await insertProduct(nombreTabla, prod);
+        });
+      } catch (error) {
+        console.log("error mysql :>> ", error);
+      }
+      browser.close();
     } catch (error) {
       console.log("error pronames :>> ", error);
     }

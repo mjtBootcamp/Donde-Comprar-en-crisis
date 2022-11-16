@@ -49,12 +49,31 @@ const scanUnimarc = async () => {
           selector: "div .Shelf_shelf__WM77V > div > div > a > div > p",
           item: 2,
         }; //
-        let pack = { class: "prod__n-per-price__text" };
-
+        /* let imgsProductos=[];
         let imgElementos = document.querySelectorAll(imagenProducto.selector);
         imgElementos.forEach((img) => {
-          //productos.push(img.src != null ? img.src : null);
+          imgsProductos.push(img.src != null ? img.src : null);
+        }); 
+        productos.push(imgsProductos);
+        */
+        let precios = [];
+        let preciosElementos = document.querySelectorAll(prBase.selector);
+        preciosElementos.forEach((p) => {
+          console.log(p.children[0].children[0].textContent);
+          let pbp = "";
+          let textPrecioBase = 0;
+          if (p.children[0].children[0].textContent != undefined) {
+            pbp = p.children[0].children[0].textContent;
+            let a = pbp.innerText.match(/\d/g);
+            let b = a.join("");
+            textPrecioBase = parseInt(b);
+            precios.push(textPrecioBase);
+          } else {
+            precios.push(null);
+          }
         });
+        productos.push(precios);
+
         let nombres = [];
         let nombreProducto = document.querySelectorAll(
           nombreCompletoProducto.selectorB[0]
@@ -72,37 +91,19 @@ const scanUnimarc = async () => {
           marcas.push(m.textContent ? m.textContent : null);
         });
         productos.push(marcas);
+        ///CONTINUAR
 
-        let preciosTextoArr = [];
-        let preciosArr = [];
-        let preciosElementos = document.querySelectorAll(prBase.selector);
-        preciosElementos.forEach((precios) => {
-          if (precios.children[0].children[0].textContent != null) {
-            let textoPrecio = precios.children[0].children[0].textContent;
-            let a = textoPrecio.match(/\d/g);
-            let b = a.join("");
-            preciosArr.push(parseInt(b));
-            preciosTextoArr.push(precios.children[0].children[0].textContent);
-          } else {
-            preciosTextoArr.push(null);
-          }        
-        });
-        //productos.push(preciosTextoArr);
-        productos.push(preciosArr);
-
-        
-
-        //console.log("productos :>> ", productos);
+        console.log("productos :>> ", productos);
 
         return productos;
       }, footerScroll);
       await page.waitForTimeout(1256);
-      //console.log("recuperados :>> ", recuperados); //no sale de evaluate
       for (let i = 0; i < recuperados[0].length; i++) {
         console.log(
           `producto :>> ${recuperados[0][i]} :>> ${recuperados[1][i]} :>> ${recuperados[2][i]}`
         );
       }
+      //console.log("recuperados :>> ", recuperados);
       //browser.close();
     } catch (error) {
       console.log("error pronames :>> ", error);
