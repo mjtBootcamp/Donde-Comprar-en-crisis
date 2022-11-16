@@ -8,20 +8,18 @@ const scanUnimarc = async () => {
   const browser = await puppeteer.launch({ headless: false, slowMo: 50 });
   const page = await browser.newPage();
   try {
-    //await page.setViewport({ width: 1000, height: 926 });
     await page.goto(webRoute); //, { waitUntil: "networkidle2" }
     await page.waitForTimeout(2652);
-    //let footerScroll = page.waitForSelector("#DropDownClose");
 
     console.log("start evaluate javascript");
     try {
       let footerScroll = await page.waitForXPath("//*[@id='DropDownClose']");
-      let recuperados = await page.evaluate(async (Pageitem) => {
+      let prodNames = await page.evaluate(async (Pageitem) => {
         Pageitem.scrollIntoView();
+        let contentProduct = { selector: "div .Shelf_shelf__WM77V" };
+        let div = document.querySelectorAll(contentProduct.selector);
 
         let productos = [];
-
-        let contentProduct = { selector: "div .Shelf_shelf__WM77V" };
         let simboloOferta = { class: "JMKOB" };
         let imagenProducto = { selector: ".picture_picture__QMdfM > img" };
         let prBase = {
@@ -50,60 +48,53 @@ const scanUnimarc = async () => {
           item: 2,
         }; //
         let pack = { class: "prod__n-per-price__text" };
+        div.forEach(async (element) => {
+          let producto = [];
+          let n = element.querySelector(nombreCompletoProducto.selectorB[0]);
+          producto.push(n.title ? n.title : null);
 
-        let imgElementos = document.querySelectorAll(imagenProducto.selector);
-        imgElementos.forEach((img) => {
-          //productos.push(img.src != null ? img.src : null);
-        });
-        let nombres = [];
-        let nombreProducto = document.querySelectorAll(
-          nombreCompletoProducto.selectorB[0]
-        );
-        nombreProducto.forEach((n) => {
-          nombres.push(n.title ? n.title : null);
-        });
-        productos.push(nombres);
+          let m = element.querySelector(".Shelf_brandText__sGfsS");
+          producto.push(m.textContent ? m.textContent : null);
 
-        let marcas = [];
-        let marcaProducto = document.querySelectorAll(
-          ".Shelf_brandText__sGfsS"
-        );
-        marcaProducto.forEach((m) => {
-          marcas.push(m.textContent ? m.textContent : null);
-        });
-        productos.push(marcas);
-
-        let preciosTextoArr = [];
-        let preciosArr = [];
-        let preciosElementos = document.querySelectorAll(prBase.selector);
-        preciosElementos.forEach((precios) => {
-          if (precios.children[0].children[0].textContent != null) {
-            let textoPrecio = precios.children[0].children[0].textContent;
+          let preciosElementos = element.querySelector(prBase.selector);
+          if (preciosElementos.children[0].children[0].textContent != null) {
+            let textoPrecio =
+              preciosElementos.children[0].children[0].textContent;
             let a = textoPrecio.match(/\d/g);
             let b = a.join("");
-            preciosArr.push(parseInt(b));
-            preciosTextoArr.push(precios.children[0].children[0].textContent);
+            producto.push(parseInt(b));
+            //preciosTextoArr.push(preciosElementos.children[0].children[0].textContent);
           } else {
-            preciosTextoArr.push(null);
-          }        
+            producto.push(null);
+          }
+          /* preciosElementos.forEach((precios) => {
+          }); */
+          //console.log("preciosElementos :>> ", preciosElementos);
+          let img = element.querySelector(imagenProducto.selector);
+          producto.push(img.src != null ? img.src : null);
+
+          producto.push(Date.now() / 1000);
+          productos.push(producto);
+          //console.log("producto :>> ", producto);
         });
-        //productos.push(preciosTextoArr);
-        productos.push(preciosArr);
-
-        
-
-        //console.log("productos :>> ", productos);
+        console.log("productos :>> ", productos);
 
         return productos;
       }, footerScroll);
       await page.waitForTimeout(1256);
-      //console.log("recuperados :>> ", recuperados); //no sale de evaluate
-      for (let i = 0; i < recuperados[0].length; i++) {
-        console.log(
-          `producto :>> ${recuperados[0][i]} :>> ${recuperados[1][i]} :>> ${recuperados[2][i]}`
-        );
+      console.log("recuperados.length :>> ", prodNames.length);
+      /*for (let i = 0; i < recuperados.length; i++) {
+        console.log(`P :>> ${recuperados[i][0]} :>> ${recuperados[i][1]} :>> ${recuperados[i][2]} :>> ${recuperados[i][3]} :>> ${recuperados[i][4]}`);
+      }*/
+      try {
+        prodNames.forEach(async (prod) => {
+          const nombreTabla = "scanunimarc";
+          await insertProduct(nombreTabla, prod);
+        });
+      } catch (error) {
+        console.log("error mysql :>> ", error);
       }
-      //browser.close();
+      browser.close();
     } catch (error) {
       console.log("error pronames :>> ", error);
     }

@@ -11,7 +11,7 @@ const scanUnimarc = async () => {
     //await page.setViewport({ width: 1000, height: 926 });
     await page.goto(webRoute); //, { waitUntil: "networkidle2" }
     await page.waitForTimeout(2652);
-    //let footerScroll = page.waitForSelector("#DropDownClose");
+    
 
     console.log("start evaluate javascript");
     try {
@@ -49,30 +49,6 @@ const scanUnimarc = async () => {
           selector: "div .Shelf_shelf__WM77V > div > div > a > div > p",
           item: 2,
         }; //
-        /* let imgsProductos=[];
-        let imgElementos = document.querySelectorAll(imagenProducto.selector);
-        imgElementos.forEach((img) => {
-          imgsProductos.push(img.src != null ? img.src : null);
-        }); 
-        productos.push(imgsProductos);
-        */
-        let precios = [];
-        let preciosElementos = document.querySelectorAll(prBase.selector);
-        preciosElementos.forEach((p) => {
-          console.log(p.children[0].children[0].textContent);
-          let pbp = "";
-          let textPrecioBase = 0;
-          if (p.children[0].children[0].textContent != undefined) {
-            pbp = p.children[0].children[0].textContent;
-            let a = pbp.innerText.match(/\d/g);
-            let b = a.join("");
-            textPrecioBase = parseInt(b);
-            precios.push(textPrecioBase);
-          } else {
-            precios.push(null);
-          }
-        });
-        productos.push(precios);
 
         let nombres = [];
         let nombreProducto = document.querySelectorAll(
@@ -91,7 +67,33 @@ const scanUnimarc = async () => {
           marcas.push(m.textContent ? m.textContent : null);
         });
         productos.push(marcas);
-        ///CONTINUAR
+
+        let precios = [];
+        let preciosElementos = document.querySelectorAll(prBase.selector);
+        preciosElementos.forEach((p) => {
+          console.log(p.children[0].children[0].textContent);
+          let pbp = "";
+          let textPrecioBase = 0;
+          if (p.children[0].children[0].textContent != undefined) {
+            pbp = p.children[0].children[0].textContent;
+            let a = pbp.innerText.match(/\d/g);
+            let b = a.join("");
+            textPrecioBase = parseInt(b);
+            precios.push(textPrecioBase);
+          } else {
+            precios.push(null);
+          }
+        });
+        productos.push(precios);
+
+        let imgsProductos = [];
+        let imgElementos = document.querySelectorAll(imagenProducto.selector);
+        imgElementos.forEach((img) => {
+          imgsProductos.push(img.src != null ? img.src : null);
+        });
+        productos.push(imgsProductos);
+
+        productos.push(Date.now() / 1000);
 
         console.log("productos :>> ", productos);
 
@@ -100,7 +102,7 @@ const scanUnimarc = async () => {
       await page.waitForTimeout(1256);
       for (let i = 0; i < recuperados[0].length; i++) {
         console.log(
-          `producto :>> ${recuperados[0][i]} :>> ${recuperados[1][i]} :>> ${recuperados[2][i]}`
+          `P :>> ${recuperados[0][i]} :>> ${recuperados[1][i]} :>> ${recuperados[2][i]} :>> ${recuperados[3][i]} :>> ${recuperados[4][i]}`
         );
       }
       //console.log("recuperados :>> ", recuperados);
