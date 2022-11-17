@@ -14,6 +14,20 @@ const insertProduct = async (tabla, values) => {
   }
 };
 
+const insertProductID = async (tabla, values) => {
+  console.log("values :>> ", values);
+  const insertQuery = {
+    text: `INSERT INTO ${tabla} (idProducto,nombreProducto, marcaProducto,precioActual,imgsrc,fecha) VALUES ($1,$2,$3,$4,$5,(to_timestamp($6)))`,
+    values,
+  };
+  try {
+    await pool.query(insertQuery);
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 const insertUser = async (values) => {
   const insertQuery = {
     text: "INSERT INTO usuario (nombre,balance,vigencia) VALUES ($1,$2,true)",
@@ -142,4 +156,5 @@ const getHistorial = async () => {
 
 module.exports = {
   insertProduct,
+  insertProductID
 };
