@@ -40,9 +40,3 @@ CREATE TABLE scanunimarc (
     precioActual INT,
     imgsrc varchar(500),
     fecha TIMESTAMP); 
-SELECT * FROM scanacuenta where nombreProducto LIKE '%1Kg%' order by precioActual asc limit 10;
-SELECT * FROM scanunimarc where nombreProducto LIKE '%1Kg%' order by precioActual asc limit 10;
-SELECT * FROM scanlider;
-SELECT * FROM scanjumbo;
-SELECT * FROM scansantaisabel;
-TRUNCATE TABLE scansantaisabel RESTART IDENTITY;

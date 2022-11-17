@@ -88,7 +88,7 @@ async function scanStaisabel() {
         console.log("error mysql :>> ", error);
       }
 
-      //browser.close();
+      browser.close();
     } catch (error) {
       console.log("error evaluate :>> ", error);
     }

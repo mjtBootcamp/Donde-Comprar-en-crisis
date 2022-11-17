@@ -106,7 +106,7 @@ const scanLider = async () => {
       } catch (error) {
         console.log("error mysql :>> ", error);
       }
-      //browser.close();
+      browser.close();
     } catch (error) {
       console.log("error pronames :>> ", error);
     }

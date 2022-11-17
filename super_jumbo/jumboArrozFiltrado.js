@@ -81,7 +81,7 @@ async function getTokoPedia() {
         return productos;
       });
       console.log(productNames); //undefined
-      const cerrar = async () => browser.close();
+      browser.close();
       //setTimeout(cerrar, 10000);
     } catch (error) {
       console.log("error evaluate :>> ", error);
