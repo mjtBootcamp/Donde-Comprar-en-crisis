@@ -13,8 +13,8 @@ const scanUnimarc = async () => {
 
     console.log("start evaluate javascript");
     try {
-      let footerScroll = await page.waitForXPath("//*[@id='DropDownClose']");
-      let prodNames = await page.evaluate(async (Pageitem) => {
+      let footerWait = await page.waitForXPath("//*[@id='DropDownClose']");
+      let products = await page.evaluate(async (Pageitem) => {
         Pageitem.scrollIntoView();
         let contentProduct = { selector: "div .Shelf_shelf__WM77V" };
         let div = document.querySelectorAll(contentProduct.selector);
@@ -77,17 +77,17 @@ const scanUnimarc = async () => {
           productos.push(producto);
           //console.log("producto :>> ", producto);
         });
-        console.log("productos :>> ", productos);
+        //console.log("productos :>> ", productos);
 
         return productos;
-      }, footerScroll);
+      }, footerWait);
       await page.waitForTimeout(1256);
-      console.log("recuperados.length :>> ", prodNames.length);
+      console.log("recuperados.length :>> ", products.length);
       /*for (let i = 0; i < recuperados.length; i++) {
         console.log(`P :>> ${recuperados[i][0]} :>> ${recuperados[i][1]} :>> ${recuperados[i][2]} :>> ${recuperados[i][3]} :>> ${recuperados[i][4]}`);
       }*/
       try {
-        prodNames.forEach(async (prod) => {
+        products.forEach(async (prod) => {
           const nombreTabla = "scanunimarc";
           await insertProduct(nombreTabla, prod);
         });

@@ -1,7 +1,7 @@
 [
   {
     "imagenProducto": {
-      "class": "",
+      "class": "lazy-image",
       "informacion": {
         "tag": "img",
         "existe": true,

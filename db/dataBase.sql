@@ -45,3 +45,4 @@ SELECT * FROM scanunimarc where nombreProducto LIKE '%1Kg%' order by precioActua
 SELECT * FROM scanlider;
 SELECT * FROM scanjumbo;
 SELECT * FROM scansantaisabel;
+TRUNCATE TABLE scansantaisabel RESTART IDENTITY;
