@@ -2,7 +2,7 @@
 const puppeteer = require("puppeteer");
 const webRoute =
   "https://www.unimarc.cl/category/despensa/arroz-y-legumbres/arroz?orderBy=OrderByPriceASC"; //DINAMIZAR
-const { insertProduct } = require("../db/consultas");
+const { insertProduct } = require("../../db/consultas");
 
 const scanUnimarc = async () => {
   const browser = await puppeteer.launch({ headless: false, slowMo: 50 });

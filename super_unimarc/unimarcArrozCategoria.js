@@ -21,7 +21,7 @@ const scanUnimarc = async () => {
 
         let productos = [];
         let simboloOferta = { class: "JMKOB" };
-        let imagenProducto = { selector: ".picture_picture__QMdfM > img" };
+        let imagenProducto = { selector: ".picture_picture__QMdfM > span > img" };
         let prBase = {
           class: "",
           selector: "div .Shelf_shelf__WM77V > div > div > div > div > div",
@@ -77,7 +77,7 @@ const scanUnimarc = async () => {
           productos.push(producto);
           //console.log("producto :>> ", producto);
         });
-        //console.log("productos :>> ", productos);
+        console.log("productos :>> ", productos);
 
         return productos;
       }, footerWait);
@@ -94,7 +94,7 @@ const scanUnimarc = async () => {
       } catch (error) {
         console.log("error mysql :>> ", error);
       }
-      browser.close();
+      //browser.close();
     } catch (error) {
       console.log("error pronames :>> ", error);
     }

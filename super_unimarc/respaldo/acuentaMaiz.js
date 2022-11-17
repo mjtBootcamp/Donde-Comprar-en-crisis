@@ -2,7 +2,7 @@
 //
 const puppeteer = require("puppeteer");
 const webRoute = "https://www.acuenta.cl/search?name=maiz%20curagua"; //DINAMIZAR
-const { insertProduct } = require("../db/consultas");
+const { insertProduct } = require("../../db/consultas");
 
 const scanAcuenta = async () => {
   const browser = await puppeteer.launch({ headless: false });

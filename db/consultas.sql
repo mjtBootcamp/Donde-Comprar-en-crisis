@@ -29,3 +29,9 @@ TRUNCATE TABLE scanunimarc RESTART IDENTITY;
 TRUNCATE TABLE scanlider RESTART IDENTITY;
 TRUNCATE TABLE scanjumbo RESTART IDENTITY;
 
+SELECT count(*) AS StIsabel FROM scansantaisabel;
+SELECT count(*) AS Acuenta FROM scanacuenta;
+SELECT count(*) AS Unimarc FROM scanunimarc;
+SELECT count(*) AS Lider FROM scanlider;
+SELECT count(*) AS Jumbo FROM scanjumbo;
+
